@@ -3,5 +3,4 @@ include/
 lib/
 .Python
 apache2/
-project/bases/desarrollo.db
 project/project/settings/privado.py

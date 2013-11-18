@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% include "bases/head.html" %}
+<body data-spy='scroll' data-target='.bs-docs-sidebar'>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <![endif]-->
+            {% include "bases/menu.html" %}
+
+        <!-- Subhead
+        ================================================== -->
+        <header class="jumbotron subhead" id="overview">
+          <div class="container">
+            <div class="docs-header-icon">
+              <h1>Gracias</h1>
+              <p class="lead">Gracias por entrar en zares del web aqui encontraras toda la documentacion necesaria para poder escribir tus blogs de la manera mas increible que te puedas imaginar.</p>
+            </div>
+          </div>
+        </header>
+        <div class='sub-jumbotron'>
+          <div class='container'>
+            <ul>
+              <li>
+                <a href="{%url 'dinicio'%}" class="active">Gracias</a>
+              </li>
+              <li>
+                <a href="{%url 'scaffolding'%}" class="">Scaffolding</a>
+              </li>
+              <li>
+                <a href="{%url 'basecss'%}" class="">Base CSS</a>
+              </li>
+              <li>
+                <a href="{%url 'components'%}" class="">Components</a>
+              </li>
+              <li>
+                <a href="{%url 'javascript'%}" class="">Javascript</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+
+        <div class="container docs-w">
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+
+      </div>
+      <div class="span9">
+
+
+
+        <!-- Download
+        ================================================== -->
+        <section id="Gracias">
+          <div class="page-header">
+            <h1>1. Documentación</h1>
+          </div>
+          <p class="lead">
+            
+          </p>
+          <p class="lead">
+           La documentacione esta basada en Bootstrap 2.
+          </p>
+        </section>
+
+
+        <!-- Next
+        ================================================== -->
+        <section id="what-next">
+          <div class="page-header">
+            <h1>Que sigue?</h1>
+          </div>
+          <p class="lead">Si quieres colaborar escribiendo articulos en nuestro blog contactanos.</p>
+          <a class="btn btn-large btn-primary" href="{% url 'contacto' %}" >Enviar solicitud de contacto</a>
+        </section>
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+            {% include "bases/footer.html" %}
+            <script src="{{STATIC_URL}}js/jquery-1.10.1.min.js" type="text/javascript"></script>
+            <script src="{{STATIC_URL}}js/bootstrap.js" type="text/javascript"></script>
+            <script src="{{STATIC_URL}}js/prettify.js" type="text/javascript"></script>
+            <script src="{{STATIC_URL}}js/main.js" type="text/javascript"></script>
+            <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+            <script>
+              jQuery(function($) {
+                  $('#loguear-usuario').on('submit', function(event){
+                      event.preventDefault();
+                      var data = new FormData();
+                      data.append("usuario", $('#id_usuario').val());
+                      data.append("password", $('#id_password').val());
+                      $.ajax({
+                          url: '{%url "loguear_usuario"%}',
+                          data: data,
+                          type: "POST",
+                          success: function(data){  
+                              if (data.recargar==true){
+                                  location.reload();
+                              }
+                              if (data.mensaje != ''){
+                                  $('#mensaje-login').append(data.mensaje)
+                              }
+                          },
+                          error: function(data){
+                              alert('Algo salio mal!')                                         
+                          },
+                          processData: false,
+                          contentType: false
+                      })
+                  });
+              })
+          </script>
+            </body>
+          </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    {% include "bases/head.html" %}
+</head>
+<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <![endif]-->
+            {% include "bases/menu.html" %}
+
+                <section class='section-wrapper about-page-w'>
+                    <div class='container'>
+                        <h1 class='section-main-header'>Acerca de</h1>
+                        <div class='row row-separated'>
+                            <div class='span9'>
+                                <h3 class='section-header'>{{usuario.get_full_name}} &nbsp&nbsp
+                                {% if usuario.facebook%}
+                                    <a href="{{usuario.facebook}}"><i class="fa fa-facebook-square"></i></a>&nbsp
+                                {%endif%}
+                                {% if usuario.twitter%}
+                                    <a href="{{usuario.twitter}}"><i class="fa fa-twitter-square"></i></a>&nbsp
+                                {%endif%}
+                                {% if usuario.gplus%}
+                                    <a href="{{usuario.gplus}}"><i class="fa fa-google-plus-square"></i></a>&nbsp
+                                {%endif%}    
+                                {% if usuario.youtube%}
+                                    <a href="{{usuario.youtube}}"><i class="fa fa-youtube-square"></i></a>&nbsp
+                                {%endif%}    
+                                {% if usuario.github%}
+                                    <a href="{{usuario.github}}"><i class="fa fa-github-square"></i></a>&nbsp
+                                {%endif%}
+                                </h3>
+                                <p class='section-paragraph'>{{usuario.biografia|safe}}</p>
+                            </div>
+                            <div class='span3'>
+                                <div class='white-card'>
+                                    <div class='img-w'>
+                                        <img alt="Test-user" src="/media/{{usuario.profile_picture}}" />
+                                    </div>
+                                    <h5>{{usuario.get_full_name}}</h5>
+                                </div>
+                            </div>
+                        </div>       
+                        <div class='row'>
+                            <div class='span12'>
+                                <div class='section-action'>
+                                    <a href="{{usuario.url_entradas}}" class="btn btn-warning btn-large">Ir a sus posts</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        {% include "bases/footer.html" %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}js/file_input.js"></script>
+        <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+        <script src="{{STATIC_URL}}js/main.js"></script>
+        <script src="{{STATIC_URL}}js/lightbox.js"></script>
+        <script src="{{STATIC_URL}}js/prettify.js"></script>
+        <script src="{{STATIC_URL}}js/comments.min.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}js/formdata.js"></script>
+        <script src="{{STATIC_URL}}js/formularios.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('pre').each(function(i,e){
+                  var codigo = e.innerHTML;
+                  $(this).html('')
+                  $(this).html("<code>" + codigo + "</code>");
+                });
+                $('pre code').each(function(i, e) {
+                  hljs.highlightBlock(e);
+                }); 
+                });
+        </script>
+            </body>
+            </html>

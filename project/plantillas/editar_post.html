@@ -1,0 +1,164 @@
+{%extends "base.html"%}
+{%block styles%}
+<link href="{{STATIC_URL}}css/tags.css" media="all" rel="stylesheet" type="text/css" />
+{%endblock%}
+{%block contenido%}
+	<div class='white-card extra-padding'>
+		<form class='form-transparent no-margin-bottom' id='form-add-comment'>
+			{%csrf_token%}
+			<fieldset>
+				<div class='row-fluid'>
+					<div class='span12'>
+						<legend>Crear un nuevo post</legend>
+						
+					</div>
+				</div>
+				<div class='row-fluid'>
+					<div class='span12'>
+						
+						<div class='controls controls-row'>
+							{{form.nombre}}
+							
+						</div>
+						<div class='controls controls-row'>
+							<label class="span6">Imagen de portada del post:</label>
+						</div>
+						<div class='controls controls-row'>	
+							{{form.foto_portada}}
+						</div>
+						<div class="row-fluid">
+							<div class="span4">
+	                           Anterior <img class="post-image" src="/media/{{foto_anterior}}" />
+	                        </div>
+                    	</div>
+                        <br />
+						<div class='controls controls-row'>
+							{{form.contenido}}
+						</div>
+						<br />
+
+						<div class='row-fluid'>
+							<div class="span6">
+								<div class='row-fluid'>
+									<div class="span12">
+										<div class='controls controls-row'>
+											<label class="span6">Categorias:</label>
+										</div>
+									</div>
+								</div>
+								<div class='row-fluid'>
+									<div class="span12">
+										<div class='controls controls-row'>
+											<div class="span1 visible-desktop">
+											</div>
+											<div class="span11">
+												{{form.categorias}}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="span6">
+								<div class='row-fluid'>
+									<div class="span12">
+										<div class='controls controls-row'>
+											<label class="span6">Tags:</label>
+										</div>
+									</div>
+								</div>
+								<div class='row-fluid'>
+									<div class="span12">
+										<div class='controls controls-row'>
+											<div class="span1 visible-desktop"></div>
+											<div class="span6">
+												{{form.tags}}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<br />	
+						<br />	
+						<br />	
+
+						<div class='form-actions'>
+							<br />	
+							<div class="row-fluid">
+								<div class='span1'>
+								</div>
+								<div class="span5">
+									<button id="editar_post" class='btn btn-large'>Termine!</button>
+								</div>
+								<div class="span6">
+									<div class='controls controls-row'>
+											<label class="span12">Hacer este post relevante?:  &nbsp &nbsp &nbsp{{form.principal}}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+ 
+            			<!-- Modal -->
+			            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				            <div class="modal-header">
+					            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					            <h3 id="myModalLabel">Errores en el post</h3>
+					        </div>
+				            <div class="modal-body">
+					            <p>Para publicar corrige los siguientes errores</p>
+					            <span class="errores"></span>
+				            </div>
+				            <div class="modal-footer">
+					            <button class="btn" data-dismiss="modal" aria-hidden="true">Entiendo</button>
+				            </div>
+			            </div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{%endblock%}
+{%block ayuda%}	
+	{% include "bases/reglas_del_sitio.html" %}{%endblock%}
+{%block scripts%}
+<script src="{{STATIC_URL}}js/chosen.jquery.min.js"></script>
+<script src="{{STATIC_URL}}js/chosen.proto.min.js"></script>
+<script src="http://xoxco.com/projects/code/tagsinput/jquery.tagsinput.js"></script>
+<script src="{{STATIC_URL}}js/posts.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap-tag.min.js" type="text/javascript"></script>
+<script>
+	$(document).ready(function(){
+
+		$(".chosen-select").chosen(); 
+
+		var todos_los_tags="{{tags}}";
+		var tags = eval(todos_los_tags.replace(/&quot;/g,'"'));
+
+		$('#editar_post').on('click', function(e){
+				e.preventDefault();
+				edit_post("{{post_query.slug}}");
+		});
+
+		//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+		var tag_input = $('#form-field-tags');
+		if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
+		{
+			tag_input.tag(
+			  {
+				placeholder:tag_input.attr('placeholder'),
+				//enable typeahead by specifying the source array
+				source: tags,//defined in ace.js >> ace.enable_search_ahead
+			  }
+			);
+		}
+		else {
+			//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+			tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+			//$('#form-field-tags').autosize({append: "\n"});
+		}
+	});
+</script>
+{%endblock%}

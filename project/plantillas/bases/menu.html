@@ -1,0 +1,76 @@
+<header id='header'>
+    <div class='navbar navbar-fixed-top navbar-inverse'>
+        <div class='navbar-inner'>
+            <div class='container'>
+                <a class='btn btn-navbar' data-target='.nav-collapse' data-toggle='collapse'>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                </a>
+                <a href="{%url 'home' %}" class="brand">ZARES DE LA WEB</a>
+                <a>Beta</a>
+                <div class='top-account-control pull-right visible-desktop'>
+                    {% if  usuario_logueado %}
+                        <a href="{%url 'salir'%}" class="top-create-account">Salir</a>
+                        <a href="" class="top-sign-in">{{usuario_logueado.usuario}}</a>
+                        <div class='login-box'>
+                            <a class='close login-box-close' href='#'>&times;</a>
+                            <h4 class='login-box-head'>Acciones</h4>
+                            <a href=""> Subir un archivo <a><br /><br />
+                            <a href=""> Editar mi perfil </a><br /><br />
+                            <a href="{%url 'por_usuario' usuario_logueado.usuario 1%}"> Ir a mis post </a><br /><br />
+                        </div>
+                    {%else%}
+                        <a href="{%url 'contacto' %}" class="top-create-account">Participar</a>
+                        <a href="#" class="top-sign-in">Miembro</a>
+                        <div class='login-box'>
+                            <a class='close login-box-close' href='#'>&times;</a>
+                            <h4 class='login-box-head'>Entrar</h4>
+                            <h5 class="red" id="mensaje-login"><h5>
+                            <form action="#" method="post" id="loguear-usuario">{% csrf_token %} 
+                                <div id="login">
+                                {{login}}
+                                </div>
+                                <div class='login-actions'>
+                                    <button  type="submit" class='btn btn-primary'>Entrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    {%endif%}
+                </div>
+                <div class='nav-collapse subnav-collapse pull-right collapse' id='top-navigation'>
+                    <ul class='nav'>
+                        <li {{ INICIO }}>
+                            <a href="{%url 'home'%}">Inicio</a>
+                        </li>
+                        <li class='dropdown'>
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias</a>
+                          <ul class='dropdown-menu'>
+                            {%for categoria in categorias_blog%}
+                            <li>
+                              <a href="{{categoria.get_absolute_url}}">{{categoria.nombre}}</a>
+                            </li>
+                            {%endfor%}
+                          </ul>
+                        </li>
+                        {% if 'blog.add_post' in user.get_all_permissions%}
+                        <li {{ BLOG }}>
+                            <a href="{%url 'crear_post'%}">Crear Post</a>
+                        </li>
+                        {%endif%}
+                        <li>
+                            <a href="{%url 'dinicio'%}">Documentacion</a>
+                        </li>
+                        <li>
+                            <a href="{%url 'tags'%}">Tags</a>
+                        </li>
+                        <li {{ CONTACTO }}>
+                            <a href="{%url 'contacto'%}">Contacto</a>
+                        </li>
+                    </ul>
+                </div>  
+                
+            </div>
+        </div>
+    </div>
+</header>

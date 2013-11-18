@@ -1,0 +1,125 @@
+{%extends "base.html"%}
+{%block contenido%}
+      {% for post in  paginator_posts%}
+            <div class='row-fluid'>    
+                  <div class="span12">
+                        <div class='white-card recent-post clearfix extra-padding'>
+                              <h5 class='recent-post-header'>
+                                    <a href="{{post.get_absolute_url}}">{{post.nombre}}</a>
+                              </h5>
+                              <div class='post-info clearfix'>
+                                    <div class='pull-left'>
+                                          <span class='post-date'>{{post.fecha_creado|date:"F d, Y"}}</span> 
+                                          <a class="post-comments post-date" href="{{dominio}}{{post.get_absolute_url}}#disqus_thread">Comentarios</a>
+                                          <a href="/autor/{{post.usuario.usuario}}">{{post.usuario.usuario}}</a>
+                                    </div>
+                                    <div class='pull-right'>
+                                          {%for tag in post.get_tags%}
+                                                <a class='post-tag' href='/tag/{{tag}}/pagina/1'>
+                                                      <span class='label label-info' style="font-size : smaller;">{{tag}}</span>
+                                                </a>
+                                          {%endfor%}
+                                    </div>
+                              </div>
+                              <div class="row-fuid">
+                                    <div class="span4">
+                                          <img class="post-image" src="/media/{{post.foto_portada}}" />
+                                    </div>
+                                    <div class="span8">
+                                    	  <div class="row-fluid">
+                                    	  		<div class="span12">
+	                                    	  		<p>{{post.contenido|safe|truncatewords_html:50}}</p>
+	                                    	  		
+	                                    	  	</div>
+	                                      </div>
+
+                                          <p class='post-content separated'></p>
+                                           <div class='pull-left'>
+	                                           <div class="fb-like" data-href="{{dominio}}{{post.get_absolute_url}}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                                          </div>
+                                          <a href="{{post.get_absolute_url}}" class="btn btn-info btn-extra pull-right">Leer mas</a>
+                                          <br />
+                                          <hr />
+                                          {% if post.usuario.usuario == usuario_logueado.usuario %}
+                                          <a href="#articulo-{{post.id}}" class="btn btn-danger btn-extra" data-toggle="modal"><i class='icon-trash'></i> Eliminar</a>
+                                          <a href="{{post.editar_post}}" class="btn btn-success btn-extra"><i class='icon-edit'></i> Editar</a>
+                                          {% endif %}
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+             </div>
+             <div id="articulo-{{post.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Eliminar post</h3>
+                  </div>
+                  <div class="modal-body">
+                        <p>Estas seguro que quieres eliminar "{{post.nombre}}" ?</p>
+                  </div>
+                  <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                        <button id="btn" value="{{post.id}}" class="btn btn-primary eliminar">Eliminar</button>
+                  </div>
+            </div> 
+
+      {%empty%}
+            <h1 class="slider-header">
+                  Al parecer no hay entradas :/
+            </h1>
+      {% endfor %} 
+      {%if paginator_posts%}
+            <div class='row'>
+                  <div class='span8'>
+                        <h3 class='section-header'>Paginas</h3>
+                        <div class='pagination'>
+                              <ul>
+                                    {%if paginator_posts.has_previous%}
+                                    <li>
+                                          <a href="{%url 'home' %}?page={{paginator_posts.previous_page_number}}">Anterior</a>
+                                    </li>
+                                    {%endif%}                                    
+                                    {%for pagina in paginator_posts.paginator.page_range%}
+                                    {%ifequal pagina paginator_posts.number%}
+                                          <li class="active" ><a href="{%url 'home'%}?page={{pagina}}">{{pagina}}</a></li>
+                                    {%else%}
+                                          <a href="{%url 'home'%}?page={{pagina}}">{{pagina}}</a>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    {%if paginator_posts.has_next%}
+                                    <li>
+                                          <a href="{%url 'home' %}?page={{paginator_posts.next_page_number}}">Siguiente</a>
+                                    </li>
+                                    {%endif%}
+                              </ul>
+                        </div>
+                  </div>
+            </div>
+      {%endif%}
+{%endblock%}
+{%block scripts%}
+<script>
+      jQuery(function($) {
+            $(".eliminar").click(function() {
+                  var data = new FormData();
+                  data.append("post", $( this ).val());
+                  $.ajax({
+                        url: '{%url "borrar_post"%}',
+                        data: data,
+                        type: "POST",
+                        success: function(data){  
+                              location.reload();
+                        },
+                        error: function(data){
+                              alert('Algo salio mal!')                                         
+                        },
+                        processData: false,
+                        contentType: false
+                  })
+            });
+      })
+</script>
+
+
+
+{%endblock%}

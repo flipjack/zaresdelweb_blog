@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    {% include "bases/head.html" %}
+    {%block styles%}{%endblock%}
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+<![endif]-->
+{% include "bases/menu.html" %}
+<section class='section-wrapper posts-w'>
+    <div class='container'>
+        <div class='row'>
+            <div class='span8'>
+                {%block contenido%}{%endblock%}
+            </div>
+            <div class='span4'>
+                <div class='blog-side-bar'>
+                    <div class='blog-side-search widget-tp'>
+                        <h3>
+                            <i class='icon-search'></i>
+                            Buscar en el Blog
+                        </h3>
+                        <form method="GET" action="/" class='no-margin-bottom form-search'>
+                            <fieldset>
+                                <div class='controls controls-row'>
+                                    <input name="q" class='search-input span4' placeholder='Busca un articulo ...' type='text' id="buscador">
+                                    <span class="error"></span>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    {%block ayuda%}{%endblock%}
+                    <div class='blog-side-text-block widget-filled'>
+                        <h3>Mas leídos</h3>
+                        {%for post in posts_mas_leidos%}
+                            <a class="roll-link roll-red" href="{{post.get_absolute_url}}"><span data-title='{{post.nombre}}'>{{post.nombre}}</span></a>
+                            <br />
+                        {%endfor%}
+                        {%if talvez_te_interese%}
+                            <br />
+                            <h3>Tal vez te interese</h3>
+                            {% for post in talvez_te_interese%}  
+                                <a class="roll-link" href="{{post.get_absolute_url}}"><span data-title='{{post.nombre}}'>{{post.nombre}}</span></a>
+                                <br />
+                            {%endfor%}
+                        {%endif%}
+                    </div>
+                    <div class='blog-side-tags widget-tp'>
+                    <h3>
+                        <i class='icon-tags'></i>
+                        Tags relevantes
+                    </h3>
+                        <ul>
+                            {%for tag in tag_blog%}
+                                <li>
+                                <a href='/tag/{{tag}}/pagina/1' class="side-tag">{{tag}}</a>
+                                </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                    {% comment %}
+                    <div class='blog-recent-tweets widget-tp'>
+                        <h3>
+                            <i class='icon-twitter-sign'></i>
+                            Recent Tweets
+                        </h3>
+                        <ul>
+                            <li>
+                                <a href="#">about 7 hours ago</a>
+                                Proximamente
+                                <a href="#">zaresdelaweb.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endcomment %}
+                    <div class='blog-categories widget-tp'>
+                        <h3>
+                            <i class='icon-th-list'></i>
+                            Categorias
+                        </h3>
+                        <div class="row">
+                            <div class="span2">
+                                <ul>
+                                    {%for categoria in categorias_segundas%}
+                                    <li>
+                                        <a href="{{categoria.get_absolute_url}}">{{categoria.nombre}}</a>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                            <div class="span2">
+                                <ul>
+                                    {%for categoria in categorias_primeras%}
+                                    <li>
+                                        <a href="{{categoria.get_absolute_url}}">{{categoria.nombre}}</a>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>            
+                    </div>
+                    <div class='blog-side-text-block widget-filled widget-yellow'>
+                        <h3>Bienvenidos</h3>
+                        <p>Hola, te gustaria participar con zares del web? puedes participar leyendo, comentando o incluso escribiendo artículos.</p>
+                        <p>Creemos que el conocimiento es libre y se debe compartir, ponte en contacto con nosotros: <a class="roll-link roll-red" href="contacto@zaresdelweb.com"><span data-title='contacto@zaresdelweb.com'>contacto@zaresdelweb.com</span></a></p>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include "bases/footer.html" %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    jQuery(function($) {
+        $( "blockquote" ).addClass( "colored" );
+        $( "pre" ).addClass( "prettyprint linenums" );
+    })
+</script>
+<!--<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>-->
+<script src="{{STATIC_URL}}js/file_input.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap.js"></script>
+<script src="{{STATIC_URL}}js/main.js"></script>
+<script src="{{STATIC_URL}}js/lightbox.js"></script>
+<script src="{{STATIC_URL}}js/prettify.js"></script>
+<script src="{{STATIC_URL}}js/comments.min.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/formdata.js"></script>
+<script src="{{STATIC_URL}}js/formularios.js"></script>
+{%block js%}{%endblock%}
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'zaresdelawebblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+    <script>
+        jQuery(function($) {
+            $('#loguear-usuario').on('submit', function(event){
+                event.preventDefault();
+                var data = new FormData();
+                data.append("usuario", $('#id_usuario').val());
+                data.append("password", $('#id_password').val());
+                $.ajax({
+                    url: '{%url "loguear_usuario"%}',
+                    data: data,
+                    type: "POST",
+                    success: function(data){  
+                        if (data.recargar==true){
+                            location.reload();
+                        }
+                        if (data.mensaje != ''){
+                            $('#mensaje-login').append(data.mensaje)
+                        }
+                    },
+                    error: function(data){
+                        alert('Algo salio mal!')                                         
+                    },
+                    processData: false,
+                    contentType: false
+                })
+            });
+        })
+    </script>
+    <script>
+    (function(){
+        $('#search').on('click', function(event){
+            event.preventDefault();
+            var len =  $.trim($('#buscador').val());
+            if(len.length <= 5){
+                $('.error').html("Minímo 6 caracteres para hacer la busqueda")
+            }else{
+                $('form').submit();
+            }
+        });
+    })();
+</script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+{%block scripts%}{%endblock%}
+
+</body>
+</html>

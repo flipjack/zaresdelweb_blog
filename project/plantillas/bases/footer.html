@@ -1,0 +1,67 @@
+<footer>
+    <div class='pre-footer'>
+        <div class='container'>
+            <div class='row'>
+                <div class='span4'>
+                    <div class='footer-logo'>
+                        <a href="http://zaresdelweb.com/">Zares del <strong>web</strong></a>
+                    </div>
+                    <ul class='footer-address'>
+                        <li>
+                            <strong>Direccion:</strong>
+                            Juan de Dios Bátiz s/n, <br/>
+                            U. Profesor Adolfo López Mateos.
+                        </li>
+                        <li>
+                            <strong>Email:</strong>
+                            contacto@zaresdelweb.com
+                        </li>
+                    </ul>
+                </div>    
+                <div class='span4'>
+                    <h5 class='footer-header'>Ultimas entradas</h5>
+                    <ul class='footer-address'>
+                        {%for recent_post in recent_posts%}
+                        <li>
+                            <a href="{{recent_post.get_absolute_url}}"><strong>{{recent_post.nombre}}</strong></a>
+                        </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+
+              
+                <div class='span4'>
+                    <h5 class='footer-header'>Nuestros amigos</h5>
+                    <ul class='footer-address'>
+                       {% include "bases/amigos.html" %}
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class='deep-footer'>
+        <div class='container'>
+            <div class='row'>
+                <div class='span6'>
+                    <div class='copyright'>Copyright&copy; 2013 Zares del web. Todos los derechos reservados.</div>
+                </div>
+                
+                <div class='span6'>
+                    <ul class='footer-links'>
+                        <li>
+                            <div class='copyright'>Autores:</div>
+                        </li>
+                        <li>
+                            <a href="http://gustavo-castellanos.com/">Gustavo Castellanos,</a>
+                        </li>
+                        <li>
+                            <a> Victor Castillo</a>
+                        </li>
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</footer>

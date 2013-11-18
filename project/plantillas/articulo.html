@@ -1,0 +1,88 @@
+{%extends "base.html"%}
+{%block contenido%}
+    <div class='single-post-w'>
+        <h1 class='post-title'>{{post.nombre}}</h1>
+        <div class='post-info'>  
+        	<div class="row-fluid">
+        		<div class="span12">
+		            <span class='info-item'>
+		                {{post.fecha_creado|date:"F d, Y"}}
+		            </span>
+		            <span class='info-item'>
+		            	<a href="{{dominio}}{{post.get_absolute_url}}#disqus_thread">Comentarios</a>
+		            </span>
+		            <span class='info-item'>
+		                Categorias:
+		                {%for categorias in post.get_categorias%}
+		                    <a class='post-tag' href='{{categorias.get_absolute_url}}'>
+		                        <span class='label label-inverse'>{{categorias}}</span>
+		                    </a>
+		                {%endfor%}
+		            </span>
+		        </div>
+		    </div>
+		    <div class="row-fluid">
+		    	<div class="span9">
+			    	{% if post.usuario.usuario == usuario_logueado.usuario %}
+						<span class='info-item'>
+							<a href="{{post.editar_post}}">Editar</a>
+						</span>
+					{%endif%}
+					<span class='info-item pull-left'>
+						Tags:
+						{%for tag in post.get_tags%}
+						    <a class='post-tag' href='/tag/{{tag}}/pagina/1'>
+						        <span class='label label-info'>{{tag}}</span>
+						    </a>
+						{%endfor%}
+					</span>
+			    </div>
+			    <div class="span3">
+				    </br>
+		            <div class="fb-like pull-right" data-href="{{dominio}}{{post.get_absolute_url}}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true">
+                    </div>
+		        </div>
+		    </div>
+        </div>          
+        <div class='single-post-image bottom decor-image'>
+            <img  src="/media/{{post.foto_portada}}" />
+        </div>
+        <div class='post-content'>
+            {{post.contenido|safe}}
+        </div>
+    </div>
+    <div class='post-author-w'>
+        <h3 class='section-header'>Autor</h3>
+        <div class='row'>
+            <div class='span1'>
+                <div class='post-author-photo hidden-phone'>
+                    <img src="/media/{{post.usuario.profile_picture}}" />
+                </div>
+            </div>
+            <div class='span7'>
+                <div class='post-author-bio-w'>
+                    <div class='post-author-name'>{{post.usuario.get_full_name}}</div>
+                    <div class='post-author-bio'>
+                        <a href="/autor/{{post.usuario.usuario}}" class="btn btn-extra pull-right">Conocer mas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>   
+{%endblock%}
+{%block scripts%}
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'zaresdelawebblog'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+{%endblock%}

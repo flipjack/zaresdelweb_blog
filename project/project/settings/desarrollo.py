@@ -56,3 +56,5 @@ EMAIL_HOST = 'smtp.webfaction.com'
 EMAIL_HOST_USER = 'zares_prueba'
 EMAIL_HOST_PASSWORD = 'mail'
 EMAIL_PORT = 587
+
+SITE_URL = 'http://localhost:8000'

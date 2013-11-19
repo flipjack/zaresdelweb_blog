@@ -58,3 +58,5 @@ EMAIL_HOST_PASSWORD = 'mail'
 EMAIL_PORT = 587
 
 SITE_URL = 'http://localhost:8000'
+
+DISQUS_URL =  'http://localhost:8000'

@@ -40,6 +40,7 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 SITE_URL = 'http://www.zaresdelaweb.com'
 
+DISQUS_URL= 'http://zaresdelaweb.com'
 EMAIL_HOST = 'smtp.webfaction.com'
 EMAIL_HOST_USER = EMAIL_USUARIO_PRIV,
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD_PRIV,

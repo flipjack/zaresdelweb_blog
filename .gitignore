@@ -4,3 +4,5 @@ lib/
 .Python
 apache2/
 project/project/settings/privado.py
+*.pyc
+*.DS_Store

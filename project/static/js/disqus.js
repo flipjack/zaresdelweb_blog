@@ -17,9 +17,9 @@ $.ajax({
       var countText = " comments";
       var count = result.response[i].posts;
 
-      if (count == 1)
+      if (count == 1){
         countText = " comment";
-
+      }
       $('a[data-disqus-url="' + result.response[i].link + '"]').html(count + countText);
 
     }

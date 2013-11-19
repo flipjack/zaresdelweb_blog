@@ -38,7 +38,7 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION
-SITE_URL = 'http://www.zaresdelaweb.com/'
+SITE_URL = 'http://www.zaresdelaweb.com'
 
 EMAIL_HOST = 'smtp.webfaction.com'
 EMAIL_HOST_USER = EMAIL_USUARIO_PRIV,

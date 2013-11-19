@@ -10,8 +10,7 @@
                               <div class='post-info clearfix'>
                                     <div class='pull-left'>
                                           <span class='post-date'>{{post.fecha_creado|date:"F d, Y"}}</span>
-                                          
-                                          <a class="post-comments post-date" href="{{dominio}}{{post.get_absolute_url}}#disqus_thread">0 comentarios</a>
+                                          <a class="post-comments post-date" href="#" data-disqus-url="{{dominio}}{{post.get_absolute_url}}">0 comentarios</a>
                                           <a href="/autor/{{post.usuario.usuario}}">{{post.usuario.usuario}}</a>
                                     </div>
                                     <div class='pull-right'>

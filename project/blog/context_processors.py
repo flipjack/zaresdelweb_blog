@@ -13,8 +13,11 @@ def login(request):
   usuario_logueado = request.user
   if request.user.is_anonymous():
     usuario_logueado = False
-
-  return {'login': login,'dominio': settings.SITE_URL,'usuario_logueado': usuario_logueado}
+  try:
+    dominio = settings.SITE_URL
+  except:
+    dominio = "http://localhost:8000/"
+  return {'login': login,'dominio': dominio,'usuario_logueado': usuario_logueado}
 
 #Gustavo comentalo
 def categorias(request):

@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 import os
 import sys
-
 if __name__ == "__main__":
-try:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.produccion")
-except:
-	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.desarrollo")
-
-    from django.core.management import execute_from_command_line
-
-    execute_from_command_line(sys.argv)
+	try:
+	    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.desarrollo")
+	except:
+		os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.produccion")
+	from django.core.management import execute_from_command_line
+	execute_from_command_line(sys.argv)

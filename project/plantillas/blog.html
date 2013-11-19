@@ -9,8 +9,9 @@
                               </h5>
                               <div class='post-info clearfix'>
                                     <div class='pull-left'>
-                                          <span class='post-date'>{{post.fecha_creado|date:"F d, Y"}}</span> 
-                                          <a class="post-comments post-date" href="{{dominio}}{{post.get_absolute_url}}#disqus_thread">Comentarios</a>
+                                          <span class='post-date'>{{post.fecha_creado|date:"F d, Y"}}</span>
+                                          
+                                          <a class="post-comments post-date" href="{{dominio}}{{post.get_absolute_url}}#disqus_thread">0 comentarios</a>
                                           <a href="/autor/{{post.usuario.usuario}}">{{post.usuario.usuario}}</a>
                                     </div>
                                     <div class='pull-right'>

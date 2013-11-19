@@ -13,7 +13,9 @@ $.ajax({
   cache: false,
   dataType: 'jsonp',
   success: function (result) {
+    console.log(result);
     for (var i in result.response) {
+      console.log(i);
       var countText = " comments";
       var count = result.response[i].posts;
 

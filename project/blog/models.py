@@ -97,6 +97,7 @@ class Post(models.Model):
         usuario = models.ForeignKey('Usuario')
         vistas = models.BigIntegerField(null=True, default=0)
         principal = models.BooleanField(default=False)
+        disqus_url= models.CharField(max_length=300, null=True)
         def __unicode__(self):
             return self.nombre
         def get_tags(self):
@@ -111,6 +112,9 @@ class Post(models.Model):
             return self.categorias.all()
         def editar_post(self):
             return reverse('blog.views.editar_post', args=[str(self.slug)])
+
+        def data_disqus_url(self):
+            return "http://" + self.disqus_url + self.get_absolute_url()
             
         class Meta:
 			ordering = ["-id"]

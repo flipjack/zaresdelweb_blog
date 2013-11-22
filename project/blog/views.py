@@ -90,6 +90,7 @@ def crear_post(request):
         form = CrearPost(request.POST, request.FILES)
         if form.is_valid():
             nuevo_post = Post()
+            nuevo_post.disqus_url = request.get_host()
             nuevo_post.nombre = form.cleaned_data['nombre']
             nuevo_post.contenido = form.cleaned_data['contenido']
             nuevo_post.tags = form.cleaned_data['tags'].lower()

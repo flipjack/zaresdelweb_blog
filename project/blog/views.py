@@ -250,6 +250,7 @@ def editar_post(request, slug):
         tags = json.dumps([str(tag) for tag  in todos_los_tags])
         post_query = get_object_or_404(Post, slug=slug)
         post = model_to_dict(post_query, fields=[], exclude=[])
+        post["tags"] = ", ".join(map(str, post_query.get_tags()))
         form = EditarPost(post)
         foto_anterior = post['foto_portada'].name
         return render(request, "editar_post.html", locals())

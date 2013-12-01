@@ -123,7 +123,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ########## TEMPLATE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS  += ('blog.context_processors.categorias','blog.context_processors.tab', 'blog.context_processors.recent_posts', 'blog.context_processors.tags_random',\
-'blog.context_processors.posts_mas_leidos', "blog.context_processors.talvez_te_interese", "blog.context_processors.login" )
+'blog.context_processors.posts_mas_leidos', "blog.context_processors.talvez_te_interese", "blog.context_processors.login",
+'blog.context_processors.next_paginator_previous_paginator_current_paginator')
 
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders

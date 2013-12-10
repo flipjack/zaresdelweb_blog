@@ -23,9 +23,3 @@ except: pass
 
 from django.core.handlers.wsgi import WSGIHandler
 application = WSGIHandler()
-<<<<<<< HEAD
-
-import django.core.handlers.wsgi
-_application = django.core.handlers.wsgi.WSGIHandler()
-=======
->>>>>>> 58eb55735e93a48fdc5ad22f02c7bd6a19e8ec93

@@ -92,3 +92,31 @@ def talvez_te_interese(request):
   except Exception as e:
     return {}
   return {}
+
+def next_paginator_previous_paginator_current_paginator(request):
+  CURRENT = request.path
+  next_precious_current = {
+    'tag': ("/tag/%s/pagina/",),
+    'categoria': ("/categoria/%s/pagina/",),
+    'home': ("/?page=",),
+    'por_usuario': ("/articulos/%s/pagina/",)
+  }
+  try:
+    m = resolve(request.path)
+    print m
+    for url_name, paginator_key in next_precious_current.iteritems():
+      if m.url_name in url_name:
+        if m.url_name == "home":
+          CURRENT = request.path + "?page="
+          return {"CURRENT": CURRENT, "NEXT": paginator_key[0], "PREVIOUS": paginator_key[0], "NORMAL": paginator_key[0]}
+        elif m.url_name == "tag":
+          CURRENT  = CURRENT.split('na/')[0] + "na/"
+          return {"CURRENT": CURRENT, "NEXT": paginator_key[0] % m.kwargs['name'], "PREVIOUS": paginator_key[0] % m.kwargs['name'], "NORMAL": paginator_key[0] % m.kwargs['name']}
+        elif m.url_name == "categoria":
+          CURRENT  = CURRENT.split('na/')[0] + "na/"
+          return {"CURRENT": CURRENT, "NEXT": paginator_key[0] % m.kwargs['slug'], "PREVIOUS": paginator_key[0] % m.kwargs['slug'], "NORMAL": paginator_key[0] % m.kwargs['slug']}          
+        elif m.url_name == "por_usuario":
+          CURRENT  = CURRENT.split('na/')[0] + "na/"
+          return {"CURRENT": CURRENT, "NEXT": paginator_key[0] % m.kwargs['usuario'], "PREVIOUS": paginator_key[0] % m.kwargs['usuario'], "NORMAL": paginator_key[0] % m.kwargs['usuario']}          
+  except: pass
+  return {"CURRENT": CURRENT, "NEXT": "", "PREVIOUS": "", "NORMAL": ""}

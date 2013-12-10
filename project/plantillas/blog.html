@@ -76,19 +76,19 @@
                               <ul>
                                     {%if paginator_posts.has_previous%}
                                     <li>
-                                          <a href="{%url 'home' %}?page={{paginator_posts.previous_page_number}}">Anterior</a>
+                                          <a href="{{PREVIOUS}}{{paginator_posts.previous_page_number}}">Anterior</a>
                                     </li>
                                     {%endif%}                                    
                                     {%for pagina in paginator_posts.paginator.page_range%}
                                     {%ifequal pagina paginator_posts.number%}
-                                          <li class="active" ><a href="{%url 'home'%}?page={{pagina}}">{{pagina}}</a></li>
+                                          <li class="active" ><a href="{{CURRENT}}{{pagina}}">{{pagina}}</a></li>
                                     {%else%}
-                                          <a href="{%url 'home'%}?page={{pagina}}">{{pagina}}</a>
+                                          <a href="{{NORMAL}}{{pagina}}">{{pagina}}</a>
                                     {%endifequal%}
                                     {%endfor%}
                                     {%if paginator_posts.has_next%}
                                     <li>
-                                          <a href="{%url 'home' %}?page={{paginator_posts.next_page_number}}">Siguiente</a>
+                                          <a href="{{NEXT}}{{paginator_posts.next_page_number}}">Siguiente</a>
                                     </li>
                                     {%endif%}
                               </ul>

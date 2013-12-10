@@ -22,3 +22,6 @@ sys.path.append(workspace)
 
 from django.core.handlers.wsgi import WSGIHandler
 application = WSGIHandler()
+
+import django.core.handlers.wsgi
+_application = django.core.handlers.wsgi.WSGIHandler()
